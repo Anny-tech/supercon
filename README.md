@@ -6,7 +6,7 @@
 [![Data Quality](https://img.shields.io/badge/Data%20Quality-99.6%25-success.svg)]()
 [![License](https://img.shields.io/badge/License-Academic-green.svg)](LICENSE)
 
-A reproducible data cleaning and visualization pipeline for superconductivity research. Part of my Materials Informatics PhD work at UVA.
+A reproducible data cleaning and visualization pipeline for promoting and pushing research on superconducturs a fascinating material system. 
 
 ---
 
