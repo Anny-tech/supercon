@@ -1,4 +1,4 @@
-# Superconductor Data Pipeline 🔬
+# Superconductor Data Pipeline
 
 > **Clean, explore, and visualize 26,000+ superconductor records from the NIMS database**
 
