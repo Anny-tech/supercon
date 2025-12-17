@@ -22,25 +22,11 @@ Takes messy superconductor data → Cleans it rigorously → Provides analysis-r
 ## Quick Start
 
 ```bash
-# Clone and install
-git clone https://github.com/yourusername/superconductor-data-pipeline.git
-pip install pandas numpy matplotlib seaborn scipy
-
-# Run pipeline
-python superconductor_data_cleaning.py
-
-# Explore data
-python data_explorer.py
-```
-
-```python
-# Load cleaned data
-import pandas as pd
-df = pd.read_csv('cleaned_data/superconductors_tier2_standard.csv')
-
-# Find high-Tc cuprates
-high_tc = df[(df['tc_kelvin'] > 77) & (df['material_family'] == 'cuprate')]
-print(f"Found {len(high_tc)} high-Tc cuprates")
+git clone https://github.com/Anny-tech/supercon.git
+cd supercon
+python setup_data.py
+cd dashboard_app
+docker-compose up --build
 ```
 
 ---
