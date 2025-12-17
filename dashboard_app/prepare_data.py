@@ -301,10 +301,7 @@ print("""
 
 print("=" * 80)
 
-# ============================================================================
 # CREATE DATA README
-# ============================================================================
-
 readme_content = f"""# Data Directory
 
 This directory contains the processed data files for the superconductor dashboard.
