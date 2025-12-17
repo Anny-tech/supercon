@@ -73,15 +73,15 @@ if 'elements' in df.columns and df['elements'].dtype == 'object':
     df['elements'] = df['elements'].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) else x)
 
 df = df.dropna(subset=['tc_kelvin'])
-print(f"  Cleaned data: {len(df):,} records")
+print(f"Cleaned data: {len(df):,} records")
 
 # Load element stats
 try:
     elem_stats = pd.read_csv(ELEMENT_STATS_FILE)
-    print(f"  Loaded element statistics: {len(elem_stats)} elements")
+    print(f"Loaded element statistics: {len(elem_stats)} elements")
 except:
     elem_stats = None
-    print(f"  Element stats file not found, will create from data")
+    print(f"Element stats file not found, will create from data")
 
 # Load feature importance
 try:
@@ -89,7 +89,7 @@ try:
     print(f"  Loaded feature importance: {len(features_importance)} features")
 except:
     features_importance = None
-    print(f"  Feature importance file not found, will create from data")
+    print(f"Feature importance file not found, will create from data")
 
 # STEP 3: CREATE NORMALIZED LOOKUP TABLES
 print("\n[3/7] Creating normalized lookup tables...")
@@ -101,7 +101,7 @@ if 'category_detailed' in df.columns:
     categories_df['category_id'] = categories_df.index + 1
     categories_df.columns = ['category_name', 'category_id']
     categories_df = categories_df[['category_id', 'category_name']]
-    print(f"  ✓ Categories: {len(categories_df)} unique values")
+    print(f"Categories: {len(categories_df)} unique values")
 else:
     categories_df = pd.DataFrame({'category_id': [1], 'category_name': ['Unknown']})
 
@@ -112,7 +112,7 @@ if 'material_family' in df.columns:
     families_df['family_id'] = families_df.index + 1
     families_df.columns = ['family_name', 'family_id']
     families_df = families_df[['family_id', 'family_name']]
-    print(f"  ✓ Families: {len(families_df)} unique values")
+    print(f"Families: {len(families_df)} unique values")
 else:
     families_df = pd.DataFrame({'family_id': [1], 'family_name': ['Unknown']})
 
@@ -123,7 +123,7 @@ if 'quality_tier' in df.columns:
     tiers_df['tier_id'] = tiers_df.index + 1
     tiers_df.columns = ['tier_name', 'tier_id']
     tiers_df = tiers_df[['tier_id', 'tier_name']]
-    print(f"  ✓ Quality tiers: {len(tiers_df)} unique values")
+    print(f"Quality tiers: {len(tiers_df)} unique values")
 else:
     tiers_df = pd.DataFrame({'tier_id': [1], 'tier_name': ['Unknown']})
 
@@ -148,7 +148,7 @@ if 'elements' in df.columns:
                      'Pa':91, 'U':92, 'Np':93, 'Pu':94, 'Am':95, 'Cm':96, 'Bk':97, 'Cf':98}
     elements_df['atomic_number'] = elements_df['element_symbol'].map(element_order)
     elements_df['atomic_number'] = elements_df['atomic_number'].fillna(0).astype(int)
-    print(f"  ✓ Elements: {len(elements_df)} unique elements")
+    print(f"Elements: {len(elements_df)} unique elements")
 else:
     elements_df = pd.DataFrame({'element_symbol': ['H', 'O'], 'atomic_number': [1, 8]})
 
