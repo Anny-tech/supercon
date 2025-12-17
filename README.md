@@ -95,7 +95,7 @@ Each record includes 8+ flags:
 
 ## Roadmap
 
-- [x] **Phase 1:** Data cleaning & EDA ✅ Complete
+- [x] **Phase 1:** Data cleaning & EDA Complete
 - [x] **Phase 2:** Feature engineering (elemental properties)
 - [x] **Phase 3:** Interactive dashboard (Plotly/Streamlit)
 
