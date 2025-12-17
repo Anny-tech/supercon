@@ -30,10 +30,7 @@ from sqlalchemy import create_engine, text
 import os
 import ast
 
-# ============================================================================
 # CONFIGURATION
-# ============================================================================
-
 DB_USER = os.getenv('POSTGRES_USER', 'postgres')
 DB_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'postgres')
 DB_HOST = os.getenv('POSTGRES_HOST', 'localhost')
@@ -48,10 +45,7 @@ print("=" * 80)
 print("3NF SUPERCONDUCTOR DATABASE SETUP")
 print("=" * 80)
 
-# ============================================================================
 # STEP 1: CREATE DATABASE
-# ============================================================================
-
 print("\n[1/7] Creating database...")
 
 server_url = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/postgres'
@@ -68,10 +62,8 @@ with server_engine.connect() as conn:
     conn.execute(text(f'CREATE DATABASE {DB_NAME}'))
     print(f"  Created database: {DB_NAME}")
 
-# ============================================================================
-# STEP 2: LOAD DATA
-# ============================================================================
 
+# STEP 2: LOAD DATA
 print("\n[2/7] Loading data...")
 
 df = pd.read_csv(DATA_FILE)
@@ -99,10 +91,7 @@ except:
     features_importance = None
     print(f"  Feature importance file not found, will create from data")
 
-# ============================================================================
 # STEP 3: CREATE NORMALIZED LOOKUP TABLES
-# ============================================================================
-
 print("\n[3/7] Creating normalized lookup tables...")
 
 # Categories table (normalized)
@@ -163,10 +152,8 @@ if 'elements' in df.columns:
 else:
     elements_df = pd.DataFrame({'element_symbol': ['H', 'O'], 'atomic_number': [1, 8]})
 
-# ============================================================================
-# STEP 4: CREATE MATERIALS TABLE WITH FOREIGN KEYS
-# ============================================================================
 
+# STEP 4: CREATE MATERIALS TABLE WITH FOREIGN KEYS
 print("\n[4/7] Creating materials table with foreign keys...")
 
 # Create materials dataframe
@@ -226,12 +213,9 @@ materials_final['category_id'] = materials_final['category_id'].fillna(1).astype
 materials_final['family_id'] = materials_final['family_id'].fillna(1).astype(int)
 materials_final['tier_id'] = materials_final['tier_id'].fillna(1).astype(int)
 
-print(f"  ✓ Materials table: {len(materials_final):,} records")
+print(f"Materials table: {len(materials_final):,} records")
 
-# ============================================================================
 # STEP 5: CREATE JUNCTION TABLE (materials_elements)
-# ============================================================================
-
 print("\n[5/7] Creating materials_elements junction table...")
 
 materials_elements_records = []
@@ -244,12 +228,10 @@ for idx, row in df.iterrows():
             })
 
 materials_elements_df = pd.DataFrame(materials_elements_records)
-print(f"  ✓ Materials-Elements: {len(materials_elements_df):,} relationships")
+print(f"Materials-Elements: {len(materials_elements_df):,} relationships")
 
-# ============================================================================
+
 # STEP 6: CREATE AGGREGATE TABLES
-# ============================================================================
-
 print("\n[6/7] Creating aggregate tables...")
 
 # Element stats (if not provided, calculate)
@@ -279,7 +261,7 @@ if elem_stats is None:
 else:
     elem_stats.columns = ['element_symbol' if col == 'element' else col for col in elem_stats.columns]
 
-print(f"  ✓ Element stats: {len(elem_stats)} elements")
+print(f"Element stats: {len(elem_stats)} elements")
 
 # Feature importance (if not provided, calculate)
 if features_importance is None:
@@ -295,12 +277,9 @@ if features_importance is None:
             'composite_score': correlations.values
         })
 
-print(f"  ✓ Feature importance: {len(features_importance)} features")
+print(f"Feature importance: {len(features_importance)} features")
 
-# ============================================================================
 # STEP 7: CREATE DATABASE SCHEMA AND LOAD DATA
-# ============================================================================
-
 print("\n[7/7] Creating schema and loading data...")
 
 db_url = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
@@ -308,7 +287,7 @@ engine = create_engine(db_url)
 
 with engine.connect() as conn:
     
-    # Create categories table
+    # create categories table
     conn.execute(text("""
         CREATE TABLE categories (
             category_id INTEGER PRIMARY KEY,
@@ -316,7 +295,7 @@ with engine.connect() as conn:
         )
     """))
     
-    # Create families table
+    # create families table
     conn.execute(text("""
         CREATE TABLE families (
             family_id INTEGER PRIMARY KEY,
@@ -324,7 +303,7 @@ with engine.connect() as conn:
         )
     """))
     
-    # Create quality_tiers table
+    # create quality_tiers table
     conn.execute(text("""
         CREATE TABLE quality_tiers (
             tier_id INTEGER PRIMARY KEY,
@@ -332,7 +311,7 @@ with engine.connect() as conn:
         )
     """))
     
-    # Create elements table
+    # create elements table
     conn.execute(text("""
         CREATE TABLE elements (
             element_symbol VARCHAR(3) PRIMARY KEY,
@@ -340,7 +319,7 @@ with engine.connect() as conn:
         )
     """))
     
-    # Create materials table
+    # create materials table
     conn.execute(text("""
         CREATE TABLE materials (
             data_number INTEGER PRIMARY KEY,
@@ -362,7 +341,7 @@ with engine.connect() as conn:
         )
     """))
     
-    # Create materials_elements junction table
+    # create materials_elements junction table
     conn.execute(text("""
         CREATE TABLE materials_elements (
             material_id INTEGER,
@@ -373,7 +352,7 @@ with engine.connect() as conn:
         )
     """))
     
-    # Create element_stats table
+    # create element_stats table
     conn.execute(text("""
         CREATE TABLE element_stats (
             element_symbol VARCHAR(3) PRIMARY KEY,
@@ -387,7 +366,7 @@ with engine.connect() as conn:
         )
     """))
     
-    # Create feature_importance table
+    # create feature_importance table
     conn.execute(text("""
         CREATE TABLE feature_importance (
             feature VARCHAR(200) PRIMARY KEY,
@@ -429,7 +408,7 @@ print(f"Loaded {len(elem_stats)} element statistics")
 features_importance.to_sql('feature_importance', engine, if_exists='append', index=False)
 print(f"Loaded {len(features_importance)} feature importance scores")
 
-# Create indexes
+# create indexes
 with engine.connect() as conn:
     conn.execute(text("CREATE INDEX idx_materials_tc ON materials(tc_kelvin)"))
     conn.execute(text("CREATE INDEX idx_materials_category ON materials(category_id)"))
@@ -437,12 +416,10 @@ with engine.connect() as conn:
     conn.execute(text("CREATE INDEX idx_materials_elements_material ON materials_elements(material_id)"))
     conn.execute(text("CREATE INDEX idx_materials_elements_element ON materials_elements(element_symbol)"))
     conn.commit()
-    print("  ✓ Created indexes")
+    print("Created indexes")
 
-# ============================================================================
+
 # VERIFICATION
-# ============================================================================
-
 print("\n" + "=" * 80)
 print("3NF DATABASE VERIFICATION")
 print("=" * 80)
