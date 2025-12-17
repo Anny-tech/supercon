@@ -47,33 +47,6 @@ docker-compose up --build
 - **Iron-based:** 9.4%
 - **Other:** 49.6%
 
-### Top Elements
-O (47.6%) · Cu (46.5%) · Ba (29.2%) · Sr (21.0%) · Y (18.3%)
-
----
-
-## What You Get
-
-### Cleaned Datasets (3 quality tiers)
-```
-cleaned_data/
-├── superconductors_tier1_strict.csv      # Publication quality (21,580)
-├── superconductors_tier2_standard.csv    # Standard quality (26,248) ⭐ Recommended
-└── superconductors_full_cleaned.csv      # Everything (26,357)
-```
-
-### Python Scripts
-- `superconductor_data_cleaning.py` - Main pipeline
-- `superconductor_visualization.py` - Generate plots
-- `data_explorer.py` - Interactive queries
-
-### Visualizations
-![Preview](cleaned_data/figures/tc_distributions.png)
-
-See `cleaned_data/figures/` for all visualizations.
-
----
-
 ## Pipeline Features
 
 ### Data Cleaning
@@ -82,6 +55,8 @@ See `cleaned_data/figures/` for all visualizations.
 ✅ Duplicate detection (44% flagged)  
 ✅ Quality tier classification  
 ✅ Zero missing critical data  
+
+---
 
 ### Quality Flags
 Each record includes 8+ flags:
