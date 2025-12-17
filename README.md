@@ -113,8 +113,6 @@ Each record includes 8+ flags:
 ## Documentation
 
 - **[QUICKSTART.md](docs/QUICKSTART.md)** - Get started in 5 min
-- **[PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md)** - Detailed findings
-- **[analysis_template.ipynb](notebooks/analysis_template.ipynb)** - Jupyter examples
 
 ---
 
