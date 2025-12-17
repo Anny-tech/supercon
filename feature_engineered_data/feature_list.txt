@@ -1,0 +1,160 @@
+COMPOSITION-BASED FEATURES
+======================================================================
+
+Total features: 146
+
+Feature categories:
+  1. Stoichiometry features
+  2. Element property statistics (magpie preset)
+  3. Valence orbital properties
+  4. Ion properties
+  5. Transition metal fraction
+
+Feature list:
+----------------------------------------------------------------------
+  1. 0-norm
+  2. 2-norm
+  3. 3-norm
+  4. 5-norm
+  5. 7-norm
+  6. 10-norm
+  7. MagpieData minimum Number
+  8. MagpieData maximum Number
+  9. MagpieData range Number
+ 10. MagpieData mean Number
+ 11. MagpieData avg_dev Number
+ 12. MagpieData mode Number
+ 13. MagpieData minimum MendeleevNumber
+ 14. MagpieData maximum MendeleevNumber
+ 15. MagpieData range MendeleevNumber
+ 16. MagpieData mean MendeleevNumber
+ 17. MagpieData avg_dev MendeleevNumber
+ 18. MagpieData mode MendeleevNumber
+ 19. MagpieData minimum AtomicWeight
+ 20. MagpieData maximum AtomicWeight
+ 21. MagpieData range AtomicWeight
+ 22. MagpieData mean AtomicWeight
+ 23. MagpieData avg_dev AtomicWeight
+ 24. MagpieData mode AtomicWeight
+ 25. MagpieData minimum MeltingT
+ 26. MagpieData maximum MeltingT
+ 27. MagpieData range MeltingT
+ 28. MagpieData mean MeltingT
+ 29. MagpieData avg_dev MeltingT
+ 30. MagpieData mode MeltingT
+ 31. MagpieData minimum Column
+ 32. MagpieData maximum Column
+ 33. MagpieData range Column
+ 34. MagpieData mean Column
+ 35. MagpieData avg_dev Column
+ 36. MagpieData mode Column
+ 37. MagpieData minimum Row
+ 38. MagpieData maximum Row
+ 39. MagpieData range Row
+ 40. MagpieData mean Row
+ 41. MagpieData avg_dev Row
+ 42. MagpieData mode Row
+ 43. MagpieData minimum CovalentRadius
+ 44. MagpieData maximum CovalentRadius
+ 45. MagpieData range CovalentRadius
+ 46. MagpieData mean CovalentRadius
+ 47. MagpieData avg_dev CovalentRadius
+ 48. MagpieData mode CovalentRadius
+ 49. MagpieData minimum Electronegativity
+ 50. MagpieData maximum Electronegativity
+ 51. MagpieData range Electronegativity
+ 52. MagpieData mean Electronegativity
+ 53. MagpieData avg_dev Electronegativity
+ 54. MagpieData mode Electronegativity
+ 55. MagpieData minimum NsValence
+ 56. MagpieData maximum NsValence
+ 57. MagpieData range NsValence
+ 58. MagpieData mean NsValence
+ 59. MagpieData avg_dev NsValence
+ 60. MagpieData mode NsValence
+ 61. MagpieData minimum NpValence
+ 62. MagpieData maximum NpValence
+ 63. MagpieData range NpValence
+ 64. MagpieData mean NpValence
+ 65. MagpieData avg_dev NpValence
+ 66. MagpieData mode NpValence
+ 67. MagpieData minimum NdValence
+ 68. MagpieData maximum NdValence
+ 69. MagpieData range NdValence
+ 70. MagpieData mean NdValence
+ 71. MagpieData avg_dev NdValence
+ 72. MagpieData mode NdValence
+ 73. MagpieData minimum NfValence
+ 74. MagpieData maximum NfValence
+ 75. MagpieData range NfValence
+ 76. MagpieData mean NfValence
+ 77. MagpieData avg_dev NfValence
+ 78. MagpieData mode NfValence
+ 79. MagpieData minimum NValence
+ 80. MagpieData maximum NValence
+ 81. MagpieData range NValence
+ 82. MagpieData mean NValence
+ 83. MagpieData avg_dev NValence
+ 84. MagpieData mode NValence
+ 85. MagpieData minimum NsUnfilled
+ 86. MagpieData maximum NsUnfilled
+ 87. MagpieData range NsUnfilled
+ 88. MagpieData mean NsUnfilled
+ 89. MagpieData avg_dev NsUnfilled
+ 90. MagpieData mode NsUnfilled
+ 91. MagpieData minimum NpUnfilled
+ 92. MagpieData maximum NpUnfilled
+ 93. MagpieData range NpUnfilled
+ 94. MagpieData mean NpUnfilled
+ 95. MagpieData avg_dev NpUnfilled
+ 96. MagpieData mode NpUnfilled
+ 97. MagpieData minimum NdUnfilled
+ 98. MagpieData maximum NdUnfilled
+ 99. MagpieData range NdUnfilled
+100. MagpieData mean NdUnfilled
+101. MagpieData avg_dev NdUnfilled
+102. MagpieData mode NdUnfilled
+103. MagpieData minimum NfUnfilled
+104. MagpieData maximum NfUnfilled
+105. MagpieData range NfUnfilled
+106. MagpieData mean NfUnfilled
+107. MagpieData avg_dev NfUnfilled
+108. MagpieData mode NfUnfilled
+109. MagpieData minimum NUnfilled
+110. MagpieData maximum NUnfilled
+111. MagpieData range NUnfilled
+112. MagpieData mean NUnfilled
+113. MagpieData avg_dev NUnfilled
+114. MagpieData mode NUnfilled
+115. MagpieData minimum GSvolume_pa
+116. MagpieData maximum GSvolume_pa
+117. MagpieData range GSvolume_pa
+118. MagpieData mean GSvolume_pa
+119. MagpieData avg_dev GSvolume_pa
+120. MagpieData mode GSvolume_pa
+121. MagpieData minimum GSbandgap
+122. MagpieData maximum GSbandgap
+123. MagpieData range GSbandgap
+124. MagpieData mean GSbandgap
+125. MagpieData avg_dev GSbandgap
+126. MagpieData mode GSbandgap
+127. MagpieData minimum GSmagmom
+128. MagpieData maximum GSmagmom
+129. MagpieData range GSmagmom
+130. MagpieData mean GSmagmom
+131. MagpieData avg_dev GSmagmom
+132. MagpieData mode GSmagmom
+133. MagpieData minimum SpaceGroupNumber
+134. MagpieData maximum SpaceGroupNumber
+135. MagpieData range SpaceGroupNumber
+136. MagpieData mean SpaceGroupNumber
+137. MagpieData avg_dev SpaceGroupNumber
+138. MagpieData mode SpaceGroupNumber
+139. avg s valence electrons
+140. avg p valence electrons
+141. avg d valence electrons
+142. avg f valence electrons
+143. compound possible
+144. max ionic char
+145. avg ionic char
+146. transition metal fraction

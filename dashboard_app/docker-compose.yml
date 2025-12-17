@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: supercon_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: supercon2025
+      POSTGRES_DB: superconductors
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./data:/data  # Mount data directory
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - supercon_network
+
+  # Database initialization service (3NF)
+  db_init:
+    build: .
+    container_name: supercon_db_init
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: supercon2025
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: superconductors
+    volumes:
+      - ./data:/data
+    depends_on:
+      db:
+        condition: service_healthy
+    command: python setup_database_3NF.py
+    networks:
+      - supercon_network
+
+  # Dash application
+  app:
+    build: .
+    container_name: supercon_dashboard
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: supercon2025
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: superconductors
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./app.py:/app/app.py
+      - ./data:/data
+    depends_on:
+      db:
+        condition: service_healthy
+      db_init:
+        condition: service_completed_successfully
+    command: gunicorn -b 0.0.0.0:8050 app:server --workers 2 --timeout 120
+    networks:
+      - supercon_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  supercon_network:
+    driver: bridge

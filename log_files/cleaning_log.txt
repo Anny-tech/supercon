@@ -1,0 +1,150 @@
+SUPERCONDUCTOR DATA CLEANING PIPELINE
+Date: 2025-12-08 00:06:18.312913
+Input: /home/digifort/Documents/Data_Management_F25/supercon/raw_data/primary.tsv
+======================================================================
+STEP 1: LOADING DATA
+======================================================================
+Loaded 26357 records from /home/digifort/Documents/Data_Management_F25/supercon/raw_data/primary.tsv
+Columns: ['2', '(Ba,La)2CuO4', 'Ba0.2La1.8Cu1O4-Y', 'T', 'Unnamed: 4', '29', 'Jpn.J.Appl.Phys., 26(1987)L223']
+
+======================================================================
+STEP 2: STANDARDIZING COLUMN NAMES
+======================================================================
+Standardized column names: ['data_number', 'common_formula', 'chemical_formula', 'structure_name', 'tc_unit', 'tc_value', 'journal_reference']
+
+======================================================================
+STEP 3: HANDLING MISSING VALUES
+======================================================================
+
+Missing value counts by column:
+  data_number: 0 (0.00%)
+  common_formula: 1290 (4.89%)
+  chemical_formula: 0 (0.00%)
+  structure_name: 6764 (25.66%)
+  tc_unit: 6346 (24.08%)
+  tc_value: 0 (0.00%)
+  journal_reference: 75 (0.28%)
+
+Rows with critical missing data (formula or Tc): 0
+
+======================================================================
+STEP 4: CLEANING CHEMICAL FORMULAS
+======================================================================
+Formulas with oxygen non-stoichiometry: 777
+
+Element count distribution:
+1      363
+2     4354
+3     5354
+4     5714
+5     6251
+6     2985
+7     1087
+8      215
+9       22
+10       1
+11      11
+
+Top 15 most common elements:
+  O: 12548 (47.6%)
+  Cu: 12257 (46.5%)
+  Ba: 7699 (29.2%)
+  Sr: 5528 (21.0%)
+  Y: 4831 (18.3%)
+  Ca: 4671 (17.7%)
+  La: 4067 (15.4%)
+  Fe: 2945 (11.2%)
+  Bi: 2906 (11.0%)
+  As: 1959 (7.4%)
+  Nb: 1718 (6.5%)
+  C: 1649 (6.3%)
+  B: 1531 (5.8%)
+  Ce: 1459 (5.5%)
+  Ni: 1432 (5.4%)
+
+======================================================================
+STEP 5: CLEANING Tc VALUES
+======================================================================
+
+Tc Validation Results:
+valid       26248
+too_low       108
+too_high        1
+
+Valid Tc Statistics:
+  Count: 26248
+  Mean: 32.78 K
+  Median: 17.30 K
+  Std: 34.40 K
+  Min: 0.01 K
+  Max: 294.00 K
+  25th percentile: 4.60 K
+  75th percentile: 58.90 K
+
+======================================================================
+STEP 6: DETECTING DUPLICATES
+======================================================================
+Records with duplicate formulas: 11663
+Records with duplicate formula + Tc: 4045
+
+Example duplicate formulas (first 5):
+
+  Formula: Ag0.81Sn1.19Se2
+    Data #109839: Tc = 6.47 K
+    Data #150303: Tc = 6.36 K
+
+======================================================================
+STEP 7: CREATING QUALITY TIERS
+======================================================================
+
+Quality Tier Distribution:
+tier1_strict       21580
+tier2_standard      4668
+tier3_inclusive      109
+  tier1_strict: 21580 records (81.9%)
+  tier2_standard: 4668 records (17.7%)
+  tier3_inclusive: 109 records (0.4%)
+
+======================================================================
+STEP 8: ADDING METADATA
+======================================================================
+
+Publications by year: 116 unique years
+  Earliest: 105.0
+  Latest: 2995.0
+
+Material Family Distribution:
+other            11120
+cuprate          10803
+iron_based        2513
+niobium           1656
+mercury_based      265
+
+======================================================================
+STEP 9: SAVING CLEANED DATA
+======================================================================
+Saved full dataset: /home/digifort/Documents/Data_Management_F25/supercon/clean_data/superconductors_full_cleaned.csv
+Saved Tier 1 dataset: /home/digifort/Documents/Data_Management_F25/supercon/clean_data/superconductors_tier1_strict.csv (21580 records)
+Saved Tier 2 dataset: /home/digifort/Documents/Data_Management_F25/supercon/clean_data/superconductors_tier2_standard.csv (26248 records)
+Saved summary: /home/digifort/Documents/Data_Management_F25/supercon/clean_data/data_summary.txt
+
+======================================================================
+STEP 10: QUALITY REPORT
+======================================================================
+
+DATA QUALITY SUMMARY:
+  Total records: 26357
+  Records with valid Tc: 26248
+  Records with oxygen variability: 777
+  Duplicate formulas: 11663
+  High-Tc materials (>77K): 4707
+
+RECOMMENDATIONS:
+  1. Use 'tier1_strict' for high-quality analyses
+  2. Use 'tier2_standard' for broader coverage
+  3. Filter by 'has_oxygen_var' when precise stoichiometry matters
+  4. Check 'is_duplicate_formula' flag for multiple measurements
+
+======================================================================
+CLEANING PIPELINE COMPLETED SUCCESSFULLY
+======================================================================

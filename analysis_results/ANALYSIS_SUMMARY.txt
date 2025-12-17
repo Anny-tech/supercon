@@ -1,0 +1,31 @@
+
+DATA SUMMARY:
+  Total records: 15,845
+  Original features: 145
+  After low-variance removal: 145
+  After multicollinearity removal: 5
+  Selected top features: 5
+  PCA components: 5
+
+Tc STATISTICS:
+  Mean: 29.87 K
+  Median: 14.40 K
+  Range: 0.01 - 294.00 K
+  High-Tc (>77K): 2,337 (14.7%)
+
+TOP 5 FEATURES (Composite Score):
+  MagpieData avg_dev GSvolume_pa: 0.799
+  max ionic char: 0.615
+  MagpieData range Electronegativity: 0.604
+  MagpieData range GSvolume_pa: 0.595
+  MagpieData range CovalentRadius: 0.552
+
+PCA VARIANCE:
+  First 5 components: 100.0% 
+  All 5 components: 100.0%
+
+OUTPUT FILES:
+  Figures: /home/digifort/Documents/Data_Management_F25/supercon/analysis_results/figures/
+  Tables: /home/digifort/Documents/Data_Management_F25/supercon/analysis_results/tables/
+  Models: /home/digifort/Documents/Data_Management_F25/supercon/analysis_results/models/
+  Modeling data: /home/digifort/Documents/Data_Management_F25/supercon/analysis_results/

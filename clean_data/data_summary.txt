@@ -1,0 +1,23 @@
+SUPERCONDUCTOR DATA CLEANING SUMMARY
+======================================================================
+
+Total records: 26357
+Tier 1 (strict): 21580 (81.9%)
+Tier 2 (standard): 26248 (99.6%)
+
+Tc Statistics (valid records):
+  Mean: 32.78 K
+  Median: 17.30 K
+  Range: 0.01 - 294.00 K
+
+Most common elements:
+  O: 12548
+  Cu: 12257
+  Ba: 7699
+  Sr: 5528
+  Y: 4831
+  Ca: 4671
+  La: 4067
+  Fe: 2945
+  Bi: 2906
+  As: 1959

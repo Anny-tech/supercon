@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Environment variables
+.env
+.env.local
+
+# Docker
+.dockerignore
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Data (large files - use Git LFS or host separately)
+data/*.csv
+data/*.pkl
+data/*.parquet
+
+# Keep example data structure
+!data/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation builds
+docs/_build/
+
+# Temporary files
+*.tmp
+*.bak

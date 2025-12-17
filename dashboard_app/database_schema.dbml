@@ -1,0 +1,215 @@
+// Superconductor Database Schema - 3rd Normal Form (3NF)
+// =======================================================
+// Author: Ankita Biswas
+// University of Virginia | Materials Informatics PhD
+// Course: DS 6600 - Data Engineering
+// Date: December 2025
+//
+// Data Source: NIMS Superconducting Materials Database
+// Features: Matminer composition-derived properties
+//
+// 3NF Compliance:
+// - 1NF: All values are atomic (no repeating groups)
+// - 2NF: No partial dependencies (all non-key attributes depend on entire PK)
+// - 3NF: No transitive dependencies (non-key attributes depend only on PK)
+
+// ============================================================================
+// LOOKUP TABLES (Normalized)
+// ============================================================================
+
+Table categories {
+  category_id int [pk, increment, note: 'Auto-increment primary key']
+  category_name varchar(100) [unique, not null, note: 'Material category (Cuprate, Iron-based, MgB2-type, etc.)']
+  
+  Note: 'Normalized material categories - eliminates redundancy in materials table'
+}
+
+Table families {
+  family_id int [pk, increment, note: 'Auto-increment primary key']
+  family_name varchar(100) [unique, not null, note: 'Broad material family classification']
+  
+  Note: 'Normalized material families - separate from categories for flexibility'
+}
+
+Table quality_tiers {
+  tier_id int [pk, increment, note: 'Auto-increment primary key']
+  tier_name varchar(50) [unique, not null, note: 'Data quality tier (tier1_strict, tier2_standard, tier3_inclusive)']
+  
+  Note: 'Normalized quality tiers with validation rules'
+}
+
+Table elements {
+  element_symbol varchar(3) [pk, note: 'Chemical element symbol (H, He, Li, etc.)']
+  atomic_number int [note: 'Atomic number (1-118)']
+  
+  Note: 'Reference table for all chemical elements in the periodic table'
+}
+
+// ============================================================================
+// CORE DATA TABLE
+// ============================================================================
+
+Table materials {
+  data_number int [pk, note: 'Unique identifier from NIMS database']
+  chemical_formula varchar(200) [not null, note: 'Chemical formula (e.g., YBa2Cu3O7)']
+  formula_normalized varchar(200) [note: 'Normalized formula for consistency']
+  tc_kelvin float [not null, note: 'Critical temperature in Kelvin']
+  n_elements int [note: 'Number of elements in composition']
+  category_id int [ref: > categories.category_id, note: 'FK to categories table']
+  family_id int [ref: > families.family_id, note: 'FK to families table']
+  tier_id int [ref: > quality_tiers.tier_id, note: 'FK to quality_tiers table']
+  has_oxygen_var boolean [note: 'Formula contains oxygen variability (O7-x notation)']
+  is_high_tc boolean [note: 'Tc > 77K (liquid nitrogen temperature)']
+  publication_year int [note: 'Year of discovery/publication']
+  tc_std float [note: 'Standard deviation of Tc (multiple measurements)']
+  n_measurements int [note: 'Number of Tc measurements']
+  
+  indexes {
+    tc_kelvin [name: 'idx_tc_kelvin']
+    category_id [name: 'idx_category']
+    publication_year [name: 'idx_year']
+  }
+  
+  Note: '''
+  Core superconductor materials table (3NF compliant)
+  - All non-key attributes depend only on data_number
+  - No transitive dependencies (categories/families/tiers normalized)
+  - Foreign keys enforce referential integrity
+  '''
+}
+
+// ============================================================================
+// JUNCTION TABLE (Many-to-Many Relationship)
+// ============================================================================
+
+Table materials_elements {
+  material_id int [ref: > materials.data_number, note: 'FK to materials table']
+  element_symbol varchar(3) [ref: > elements.element_symbol, note: 'FK to elements table']
+  
+  indexes {
+    (material_id, element_symbol) [pk]
+    material_id [name: 'idx_material']
+    element_symbol [name: 'idx_element']
+  }
+  
+  Note: '''
+  Junction table for many-to-many relationship:
+  - One material contains many elements
+  - One element appears in many materials
+  - Composite primary key (material_id, element_symbol)
+  '''
+}
+
+// ============================================================================
+// AGGREGATE TABLES
+// ============================================================================
+
+Table element_stats {
+  element_symbol varchar(3) [pk, ref: > elements.element_symbol, note: 'FK to elements table']
+  count int [note: 'Number of materials containing this element']
+  mean_tc float [note: 'Mean Tc of materials with this element']
+  median_tc float [note: 'Median Tc']
+  std_tc float [note: 'Standard deviation of Tc']
+  min_tc float [note: 'Minimum Tc']
+  max_tc float [note: 'Maximum Tc']
+  
+  Note: '''
+  Aggregate statistics by element
+  - Derived from materials and materials_elements tables
+  - Used for dashboard performance optimization
+  - Updated via materialized view or periodic refresh
+  '''
+}
+
+Table feature_importance {
+  feature_name varchar(200) [pk, note: 'Matminer feature name']
+  composite_score float [note: 'Composite importance score (F-test + MI + RF)']
+  
+  Note: '''
+  Feature importance rankings for Tc prediction
+  - Derived from statistical analysis
+  - Top 20 features by composite score
+  - Used for feature selection in modeling
+  '''
+}
+
+// ============================================================================
+// RELATIONSHIPS SUMMARY
+// ============================================================================
+
+// One-to-Many Relationships:
+// - categories → materials (one category, many materials)
+// - families → materials (one family, many materials)
+// - quality_tiers → materials (one tier, many materials)
+// - elements → element_stats (one element, one stat record)
+
+// Many-to-Many Relationships:
+// - materials ←→ elements (via materials_elements junction table)
+
+// ============================================================================
+// 3NF VERIFICATION
+// ============================================================================
+
+// ✓ 1st Normal Form (1NF):
+//   - All attributes contain atomic values
+//   - No repeating groups (elements stored in junction table)
+//   - Each row is unique (primary keys defined)
+
+// ✓ 2nd Normal Form (2NF):
+//   - All tables have single-column primary keys OR
+//   - Composite keys where all non-key attributes depend on entire key
+//   - materials_elements: no non-key attributes (only PK/FK columns)
+
+// ✓ 3rd Normal Form (3NF):
+//   - No transitive dependencies
+//   - materials.category_id → categories.category_name (no transitive dependency)
+//   - materials.family_id → families.family_name (no transitive dependency)
+//   - materials.tier_id → quality_tiers.tier_name (no transitive dependency)
+//   - All non-key attributes depend ONLY on primary key
+
+// ============================================================================
+// DATA QUALITY & INTEGRITY
+// ============================================================================
+
+// Foreign Key Constraints:
+//   ✓ materials.category_id → categories.category_id
+//   ✓ materials.family_id → families.family_id
+//   ✓ materials.tier_id → quality_tiers.tier_id
+//   ✓ materials_elements.material_id → materials.data_number
+//   ✓ materials_elements.element_symbol → elements.element_symbol
+//   ✓ element_stats.element_symbol → elements.element_symbol
+
+// Indexes for Query Performance:
+//   ✓ materials(tc_kelvin) - for Tc range queries
+//   ✓ materials(category_id) - for category filtering
+//   ✓ materials(publication_year) - for temporal analysis
+//   ✓ materials_elements(material_id) - for element lookup
+//   ✓ materials_elements(element_symbol) - for reverse lookup
+
+// ============================================================================
+// SAMPLE QUERIES
+// ============================================================================
+
+// Query 1: Get materials with their category names
+// SELECT m.chemical_formula, m.tc_kelvin, c.category_name
+// FROM materials m
+// JOIN categories c ON m.category_id = c.category_id;
+
+// Query 2: Find all elements in a specific material
+// SELECT e.element_symbol, e.atomic_number
+// FROM materials_elements me
+// JOIN elements e ON me.element_symbol = e.element_symbol
+// WHERE me.material_id = 123;
+
+// Query 3: Get high-Tc cuprates with quality tier
+// SELECT m.chemical_formula, m.tc_kelvin, c.category_name, q.tier_name
+// FROM materials m
+// JOIN categories c ON m.category_id = c.category_id
+// JOIN quality_tiers q ON m.tier_id = q.tier_id
+// WHERE m.is_high_tc = true AND c.category_name = 'Cuprate';
+
+// Query 4: Element prevalence analysis
+// SELECT e.element_symbol, es.count, es.mean_tc
+// FROM elements e
+// JOIN element_stats es ON e.element_symbol = es.element_symbol
+// ORDER BY es.mean_tc DESC;
