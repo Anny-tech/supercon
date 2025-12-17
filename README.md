@@ -71,12 +71,6 @@ Each record includes 8+ flags:
 
 ---
 
-## Documentation
-
-- **[QUICKSTART.md](docs/QUICKSTART.md)** - Get started in 5 min
-
----
-
 ## Roadmap
 
 - [x] **Phase 1:** Data cleaning & EDA ✅ Complete
