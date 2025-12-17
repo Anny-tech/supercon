@@ -1,4 +1,4 @@
-# Superconductor Data Pipeline
+#  Normalized Database and Interactive Dashboard for Superconductors
 
 > **Clean, explore, and visualize 26,000+ superconductor records from the NIMS database**
 
@@ -6,7 +6,7 @@
 [![Data Quality](https://img.shields.io/badge/Data%20Quality-99.6%25-success.svg)]()
 [![License](https://img.shields.io/badge/License-Academic-green.svg)](LICENSE)
 
-A reproducible data cleaning and visualization pipeline for promoting and pushing research on superconducturs a fascinating material system. 
+A reproducible data cleaning and visualization dashboard for promoting and pushing research on superconducturs a fascinating material system. 
 
 ---
 
@@ -121,13 +121,12 @@ Each record includes 8+ flags:
 ## Roadmap
 
 - [x] **Phase 1:** Data cleaning & EDA ✅ Complete
-- [ ] **Phase 2:** Feature engineering (elemental properties)
-- [ ] **Phase 3:** Interactive dashboard (Plotly/Streamlit)
-- [ ] **Phase 4:** Predictive modeling (optional)
+- [x] **Phase 2:** Feature engineering (elemental properties)
+- [x] **Phase 3:** Interactive dashboard (Plotly/Streamlit)
 
 ---
 
-## 📚 Citation
+## Citation
 
 ```bibtex
 @misc{biswas2025superconductor,
