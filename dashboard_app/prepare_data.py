@@ -1,5 +1,5 @@
 """
-Data Preparation Script - CORRECTED VERSION
+Data Preparation Script
 ============================================
 Author: Ankita Biswas
 Date: December 2025
@@ -19,7 +19,7 @@ import pandas as pd
 import os
 import shutil
 
-# CONFIGURATION - UPDATE THESE PATHS TO YOUR ACTUAL LOCATIONS
+# CONFIGURATION 
 ANALYSIS_RESULTS_DIR = './analysis_results/'  
 DASHBOARD_EXTRAS_DIR = './analysis_results/'    
 
