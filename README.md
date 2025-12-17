@@ -15,7 +15,7 @@ A reproducible data cleaning and visualization dashboard for promoting and pushi
 Takes messy superconductor data → Cleans it rigorously → Provides analysis-ready datasets
 
 **Input:** 26,357 raw records from NIMS database  
-**Output:** 26,248 validated records (99.6% quality) + visualizations + interactive tools
+**Output:** 15,845 validated records + visualizations + interactive tools
 
 ---
 
