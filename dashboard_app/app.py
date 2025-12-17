@@ -4,8 +4,6 @@ Superconductor Dashboard with SQL Playground
 Author: Ankita Biswas
 Project: Public Dashboard for Superconductors
 Date: December 2025
-
-Interactive dashboard with SQL query interface for exploring superconductivity data
 """
 
 import dash
