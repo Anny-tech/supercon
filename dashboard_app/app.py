@@ -618,7 +618,7 @@ LIMIT 20;"""
         
         # Example queries dropdown
         html.Div([
-            html.Label("📚 Example Queries:", style={'fontWeight': 'bold', 'fontSize': '16px', 'marginBottom': '10px'}),
+            html.Label("Example Queries:", style={'fontWeight': 'bold', 'fontSize': '16px', 'marginBottom': '10px'}),
             dcc.Dropdown(
                 id='example-query-dropdown',
                 options=[{'label': name, 'value': query} for name, query in example_queries.items()],
@@ -629,7 +629,7 @@ LIMIT 20;"""
         
         # SQL textarea
         html.Div([
-            html.Label("✍️ Your SQL Query:", style={'fontWeight': 'bold', 'fontSize': '16px', 'marginBottom': '10px'}),
+            html.Label("Your SQL Query:", style={'fontWeight': 'bold', 'fontSize': '16px', 'marginBottom': '10px'}),
             dcc.Textarea(
                 id='sql-query-input',
                 placeholder='Enter your SQL query here...\n\nExample:\nSELECT * FROM materials LIMIT 5;',
@@ -649,7 +649,7 @@ LIMIT 20;"""
         # Execute button
         html.Div([
             html.Button(
-                '▶️ Execute Query',
+                'Execute Query',
                 id='execute-query-btn',
                 n_clicks=0,
                 style={
@@ -665,7 +665,7 @@ LIMIT 20;"""
                 }
             ),
             html.Button(
-                '🗑️ Clear',
+                'Clear',
                 id='clear-query-btn',
                 n_clicks=0,
                 style={
@@ -687,7 +687,7 @@ LIMIT 20;"""
         # Database schema reference
         html.Div([
             html.Hr(style={'margin': '40px 0'}),
-            html.H4("📋 Database Schema Reference", style={'color': '#232D4B'}),
+            html.H4("Database Schema Reference", style={'color': '#232D4B'}),
             
             html.Div([
                 html.Div([
@@ -778,7 +778,7 @@ def execute_sql_query(n_clicks, query):
         if not query_upper.startswith('SELECT'):
             return html.Div([
                 html.Div([
-                    html.H4("❌ Error: Only SELECT queries allowed", style={'color': '#e74c3c'}),
+                    html.H4("Error: Only SELECT queries allowed", style={'color': '#e74c3c'}),
                     html.P("For security reasons, only SELECT statements are permitted. No INSERT, UPDATE, DELETE, DROP, etc.")
                 ], style={
                     'backgroundColor': '#ffe6e6',
@@ -793,7 +793,7 @@ def execute_sql_query(n_clicks, query):
         
         # Success message
         success_msg = html.Div([
-            html.Span("✅ Query executed successfully! ", style={'color': '#27ae60', 'fontWeight': 'bold'}),
+            html.Span("Query executed successfully! ", style={'color': '#27ae60', 'fontWeight': 'bold'}),
             html.Span(f"Returned {len(result_df)} rows, {len(result_df.columns)} columns")
         ], style={
             'backgroundColor': '#d5f4e6',
@@ -854,10 +854,10 @@ def execute_sql_query(n_clicks, query):
         error_msg = str(e)
         return html.Div([
             html.Div([
-                html.H4("❌ Query Error", style={'color': '#e74c3c'}),
+                html.H4("Query Error", style={'color': '#e74c3c'}),
                 html.P(error_msg, style={'fontFamily': 'Monaco, Courier, monospace', 'fontSize': '14px'}),
                 html.Hr(),
-                html.P("💡 Tips:", style={'fontWeight': 'bold'}),
+                html.P("Tips:", style={'fontWeight': 'bold'}),
                 html.Ul([
                     html.Li("Check your SQL syntax"),
                     html.Li("Verify table and column names"),
@@ -891,7 +891,7 @@ def create_schema_tab():
             
             html.A(
                 html.Button(
-                    "🔗 Open dbdiagram.io Visualizer",
+                    "Open dbdiagram.io Visualizer",
                     style={
                         'backgroundColor': '#232D4B',
                         'color': 'white',
