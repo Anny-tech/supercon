@@ -32,19 +32,42 @@ docker-compose up --build
 
 ## Key Results
 
+Data Statistics:
 | Metric | Value |
 |--------|-------|
-| Total Materials | 26,357 |
-| Valid Records | 26,248 (99.6%) |
-| Mean Tc | 32.78 K |
-| High-Tc (>77K) | 4,707 (17.9%) |
-| Elements | 92 unique |
+| Final records | 15845 |
+| Total columns | 164 |
+| Composition features | 146 |
 | Time Span | 1911-2025 |
 
-### Material Families
-- **Cuprates:** 41% (highest Tc ~60K avg)
-- **Iron-based:** 9.4%
-- **Other:** 49.6%
+Tc Statistics:
+| Metric | Value |
+|--------|-------|
+|  Mean | 29.87 K |
+|  Median | 14.40 K |
+|  Std | 32.82 K |
+|  Min | 0.01 K |
+|  Max | 294.00 K |
+
+Material Categories:
+  Cuprate: 5910 (37.3%)
+  Other: 5721 (36.1%)
+  Iron-pnictide: 1124 (7.1%)
+  Niobium-based: 994 (6.3%)
+  Heavy-fermion: 560 (3.5%)
+  Borocarbide: 308 (1.9%)
+  Iron-chalcogenide: 267 (1.7%)
+  Bismuthate: 253 (1.6%)
+  Iron-based: 205 (1.3%)
+  MgB2-type: 138 (0.9%)
+  Niobium-nitride: 81 (0.5%)
+  Organic: 72 (0.5%)
+  Hydrogen-rich: 69 (0.4%)
+  Elemental: 60 (0.4%)
+  Niobium-selenide: 45 (0.3%)
+  Cobaltate: 33 (0.2%)
+  Ruthenate: 4 (0.0%)
+  Mercury-cuprate: 1 (0.0%)
 
 ## Pipeline Features
 
