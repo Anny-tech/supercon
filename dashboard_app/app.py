@@ -18,7 +18,6 @@ import numpy as np
 from sqlalchemy import create_engine
 import os
 
-# Create the app FIRST
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
 
@@ -30,7 +29,7 @@ PLOTLY_CONFIG = {
     'font': {'size': 16}
 }
 
-# Add UVA Garamond styling
+
 app.index_string = '''
 <!DOCTYPE html>
 <html>
@@ -122,9 +121,8 @@ app.index_string = '''
 </html>
 '''
 
-# ============================================================================
+
 # DATABASE CONNECTION
-# ============================================================================
 
 def get_db_connection():
     """Create database connection using environment variables"""
@@ -137,9 +135,8 @@ def get_db_connection():
     connection_string = f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
     return create_engine(connection_string)
 
-# ============================================================================
+
 # DATA LOADING
-# ============================================================================
 
 def load_data():
     """Load data from 3NF PostgreSQL database"""
@@ -196,10 +193,7 @@ def load_data():
 # Load data
 df, elem_stats, top_features = load_data()
 
-# ============================================================================
 # TAB 1: OVERVIEW
-# ============================================================================
-
 def create_overview_tab(df):
     """Overview with Tc distribution"""
     
@@ -257,10 +251,8 @@ def create_overview_tab(df):
         dcc.Graph(figure=fig)
     ])
 
-# ============================================================================
-# TAB 2: ELEMENT EXPLORER
-# ============================================================================
 
+# TAB 2: ELEMENT EXPLORER
 def create_elements_tab(df):
     """Element prevalence analysis"""
     
@@ -308,9 +300,7 @@ def update_element_graphs(selected_elements):
     
     return dcc.Graph(figure=fig)
 
-# ============================================================================
 # TAB 3: COMPOSITION TRENDS
-# ============================================================================
 
 def create_trends_tab(df):
     """Composition complexity and temporal trends"""
@@ -372,9 +362,8 @@ def create_trends_tab(df):
     else:
         return html.Div([dcc.Graph(figure=fig1)])
 
-# ============================================================================
+
 # TAB 4: DATA QUALITY
-# ============================================================================
 
 def create_quality_tab(df):
     """Data quality metrics"""
@@ -455,9 +444,8 @@ def create_quality_tab(df):
         ], style={'marginTop': '30px'})
     ])
 
-# ============================================================================
+
 # TAB 5: FEATURE IMPORTANCE
-# ============================================================================
 
 def create_features_tab(df, top_features):
     """Feature importance visualization"""
@@ -525,9 +513,8 @@ def create_features_tab(df, top_features):
         ], style={'backgroundColor': '#ecf0f1', 'padding': '20px', 'borderRadius': '5px', 'marginTop': '20px'})
     ])
 
-# ============================================================================
+
 # TAB 6: SQL QUERY PLAYGROUND
-# ============================================================================
 
 def create_sql_tab():
     """Interactive SQL query interface"""
@@ -728,9 +715,8 @@ LIMIT 20;"""
     ], style={'padding': '20px'})
 
 
-# ============================================================================
+
 # CALLBACKS FOR SQL TAB
-# ============================================================================
 
 @app.callback(
     Output('sql-query-input', 'value'),
@@ -872,11 +858,7 @@ def execute_sql_query(n_clicks, query):
             })
         ])
 
-
-# ============================================================================
 # TAB 7: DATABASE SCHEMA
-# ============================================================================
-
 def create_schema_tab():
     """Database schema information"""
     
@@ -944,10 +926,7 @@ def create_schema_tab():
     ], style={'padding': '20px'})
 
 
-# ============================================================================
 # APP LAYOUT
-# ============================================================================
-
 app.layout = html.Div([
     html.H1("Superconductor Materials Database Dashboard",
             style={'textAlign': 'center', 'padding': '20px', 'backgroundColor': '#232D4B',
@@ -980,10 +959,6 @@ app.layout = html.Div([
         ], style={'padding': '20px'})
     ], style={'backgroundColor': '#f8f9fa', 'marginTop': '40px'})
 ])
-
-# ============================================================================
-# RUN APP
-# ============================================================================
 
 if __name__ == '__main__':
     app.run_server(debug=False, host='0.0.0.0', port=8050)
