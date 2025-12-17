@@ -19,15 +19,11 @@ import pandas as pd
 import os
 import shutil
 
-# ============================================================================
 # CONFIGURATION - UPDATE THESE PATHS TO YOUR ACTUAL LOCATIONS
-# ============================================================================
+ANALYSIS_RESULTS_DIR = './analysis_results/'  
+DASHBOARD_EXTRAS_DIR = './analysis_results/'    
 
-# Where YOUR analysis outputs are stored
-ANALYSIS_RESULTS_DIR = './analysis_results/'  # From comprehensive_analysis.py
-DASHBOARD_EXTRAS_DIR = './analysis_results/'     # From crosstabs_and_quality.py
-
-# Your main feature-engineered dataset
+# feature-engineered dataset
 MAIN_DATA_FILE = './superconductors_with_features.csv' 
 
 # Output directory for dashboard
@@ -43,10 +39,8 @@ print("=" * 80)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 print(f"Created output directory: {OUTPUT_DIR}")
 
-# ============================================================================
-# STEP 1: LOCATE YOUR FILES
-# ============================================================================
 
+# STEP 1: LOCATE FILES
 print("\n[STEP 1/4] Locating your data files...")
 
 # Find main dataset
@@ -102,10 +96,7 @@ for candidate in feature_candidates:
         print(f"Found feature importance: {candidate}")
         break
 
-# ============================================================================
 # STEP 2: LOAD AND VALIDATE DATA
-# ============================================================================
-
 print("\n[STEP 2/4] Loading and validating data...")
 
 # Load main dataset
@@ -123,10 +114,7 @@ if missing_cols:
 
 print(f"Required columns present")
 
-# ============================================================================
 # STEP 3: PREPARE MATERIALS TABLE
-# ============================================================================
-
 print("\n[STEP 3/4] Preparing materials table for database...")
 
 # Define columns we want (only keep what exists)
@@ -156,10 +144,8 @@ materials_df = df[materials_cols].copy()
 materials_df = materials_df.dropna(subset=['tc_kelvin'])
 print(f"Materials table: {len(materials_df):,} records")
 
-# ============================================================================
-# STEP 4: PREPARE ELEMENT STATS (create if not found)
-# ============================================================================
 
+# STEP 4: PREPARE ELEMENT STATS (create if not found)
 print("\n[STEP 4/4] Preparing element statistics...")
 
 if elem_file and os.path.exists(elem_file):
@@ -219,10 +205,8 @@ else:
             'max_tc': [130, 120, 55, 35, 92]
         })
 
-# ============================================================================
-# STEP 5: PREPARE FEATURE IMPORTANCE (create if not found)
-# ============================================================================
 
+# STEP 5: PREPARE FEATURE IMPORTANCE
 print("\n[STEP 5/5] Preparing feature importance...")
 
 if feature_file and os.path.exists(feature_file):
@@ -260,10 +244,8 @@ else:
             'rf_importance': [0.3, 0.25]
         })
 
-# ============================================================================
-# STEP 6: SAVE FILES
-# ============================================================================
 
+# STEP 6: SAVE FILES
 print("\n[STEP 6/6] Saving files to dashboard data directory...")
 
 # Save materials
@@ -282,10 +264,7 @@ feature_output = os.path.join(OUTPUT_DIR, 'feature_importance.csv')
 features.to_csv(feature_output, index=False)
 print(f"Saved: feature_importance.csv ({len(features)} records)")
 
-# ============================================================================
 # VERIFICATION & SUMMARY
-# ============================================================================
-
 print("\n" + "=" * 80)
 print("DATA PREPARATION COMPLETE!")
 print("=" * 80)
