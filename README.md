@@ -24,7 +24,6 @@ Takes messy superconductor data → Cleans it rigorously → Provides analysis-r
 ```bash
 git clone https://github.com/Anny-tech/supercon.git
 cd supercon
-python setup_data.py
 cd dashboard_app
 docker-compose up --build
 ```
