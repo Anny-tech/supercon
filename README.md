@@ -72,11 +72,11 @@ Material Categories:
 ## Pipeline Features
 
 ### Data Cleaning
-✅ Formula parsing & element extraction  
-✅ Physical validation (0.01K < Tc < 300K)  
-✅ Duplicate detection (44% flagged)  
-✅ Quality tier classification  
-✅ Zero missing critical data  
+1. Formula parsing & element extraction  
+2. Physical validation (0.01K < Tc < 300K)  
+3. Duplicate detection (44% flagged)  
+4. Quality tier classification  
+5. Zero missing critical data  
 
 ---
 
